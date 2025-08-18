@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:myroulette/enums/test_slice.dart';
 import 'package:roulette/roulette.dart';
 
 class RouletteExample extends StatefulWidget {
@@ -15,31 +16,17 @@ class _RouletteExampleState extends State<RouletteExample> {
   final _random = Random(); // Instancia Random para trabajar con la aleatoreidad del slice
   Timer? _timer; // Intanacia para trabajar los lapsos de tiempo
 
-  // Gama de colores usada en los slice (debe coincidir con la cantidad de slices)
-  final colors = <Color>[
-    Colors.red.withAlpha(50),
-    Colors.yellow.withAlpha(90),
-    Colors.amber.withAlpha(50),
-    Colors.indigo.withAlpha(70),
-  ];
-
   // Rebanadas con color y texto (pueden llevar imagenes)
   late final slices = RouletteGroup.uniform(
-    colors.length,
-    colorBuilder: (index) => colors[index],
-    textBuilder: (index) {
-      if (index == 0) return 'Cafe';
-      if (index == 1) return 'Té';
-      if (index == 2) return 'Malteada';
-      if (index == 3) return 'Licuado';
-      return '';
-    },
+    TestSlice.values.length,
+    colorBuilder: (index) => TestSlice.values[index].color,
+    textBuilder: (index) => TestSlice.values[index].name,
     textStyleBuilder: (index) => TextStyle(fontSize: 22, color: Colors.purple.shade400),
   );
 
   // Detona el loop de la ruleta cada 6 segundos
   void _spin() async {
-    const sliceCount = 4; // Length estatico de slices
+    final sliceCount = TestSlice.values.length; // Length estatico de slices
     final targetIndex = _random.nextInt(sliceCount); // Genera un número aleatorio entero entre 0 y 4
 
     // Configuración de la ruleta basada en el controlador:
@@ -56,8 +43,7 @@ class _RouletteExampleState extends State<RouletteExample> {
       curve: Curves.easeOut,
     );
 
-    // Loop: Se detona nuevamente esta misma función 3 segundos despues de haberse ejecutado
-    _timer = Timer(const Duration(seconds: 3), _spin);
+    _timer = Timer(const Duration(seconds: 3), _spin); // Se detona nuevamente esta misma función 3 segundos despues de haberse ejecutad
   }
 
   // Inicio del giro infinito de la ruleta
