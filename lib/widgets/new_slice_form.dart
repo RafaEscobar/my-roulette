@@ -1,7 +1,17 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:myroulette/widgets/simple_button.dart';
 
-class NewSliceForm extends StatelessWidget {
+class NewSliceForm extends StatefulWidget {
   const NewSliceForm({super.key});
+
+  @override
+  State<NewSliceForm> createState() => _NewSliceFormState();
+}
+
+class _NewSliceFormState extends State<NewSliceForm> {
+  final TextEditingController _searchController = TextEditingController();
+  Color screenColor = Colors.blue; // 👈 color inicial
 
   void _openModal(BuildContext context) {
     showModalBottomSheet(
@@ -15,7 +25,7 @@ class NewSliceForm extends StatelessWidget {
           child: SingleChildScrollView(
             padding: EdgeInsets.only(bottom: MediaQuery.of(modalContext).viewInsets.bottom),
             child: Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 25),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,9 +51,43 @@ class NewSliceForm extends StatelessWidget {
                       const Expanded(flex: 3, child: SizedBox()),
                     ],
                   ),
-                  SizedBox(
-                    height: 100,
-                    child: Placeholder(),
+                  TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      labelText: 'Elemento',
+                      labelStyle: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade500),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () => (),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Text("Selecciona el color:", style: TextStyle(fontSize: 18),),
+                  ColorPicker(
+                    color: screenColor,
+                    onColorChanged: (Color color) => setState(() => screenColor = color),
+                    width: 40,
+                    height: 40,
+                    borderRadius: 30,
+                    pickersEnabled: const <ColorPickerType, bool>{
+                      ColorPickerType.wheel: true,
+                      ColorPickerType.accent: false,
+                      ColorPickerType.primary: false,
+                      ColorPickerType.both: false,
+                      ColorPickerType.custom: false,
+                    },
+                  ),
+                  Row(
+                    children: [
+
+                    ],
                   )
                 ],
               ),
@@ -59,26 +103,13 @@ class NewSliceForm extends StatelessWidget {
     return SizedBox(
       height: 50,
       width: 210,
-      child: GestureDetector(
-        onTap: () => _openModal(context),
-        child: Container(
-          height: 50,
-          width: 210,
-          decoration: BoxDecoration(
-            color: Color(0XFFFDE74C).withAlpha(150),
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 6,
-            children: [
-              Icon(Icons.add, size: 26, color: Colors.purple.shade700,),
-              Text("Agregar elemento", style: TextStyle(fontSize: 18, color: Colors.purple.shade700),)
-            ],
-          ),
-        ),
-      ),
+      child: SimpleButton(
+        label: 'Agregar elemento',
+        callBack: () => _openModal,
+        btnColor: Color(0XFFFDE74C).withAlpha(95),
+        textColor: Colors.purple.shade700,
+        icon: Icons.add,
+      )
     );
   }
 }

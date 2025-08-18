@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myroulette/screens/roulette_screen.dart';
 import 'package:myroulette/widgets/roulette_example.dart';
+import 'package:myroulette/widgets/simple_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,22 +32,17 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(bottom: 20),
-              child: GestureDetector(
-                onTap: () {
+              child: SimpleButton(
+                label: 'Generar un nueva ruleta',
+                callBack: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => RouletteScreen(),)
                   );
                 },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Color(0XFFFDE74C).withAlpha(95),
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Text("Generar un nueva ruleta", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.purple.shade700),),
-                ),
-              ),
+                btnColor: Color(0XFFFDE74C).withAlpha(95),
+                textColor: Colors.purple.shade700,
+              )
             )
           ],
         ),
