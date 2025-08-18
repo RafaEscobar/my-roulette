@@ -48,25 +48,23 @@ class _RouletteExampleState extends State<RouletteExample> {
     // Protege contra estado desmontado
     if (!mounted) return;
 
-    // Obtener el slice ganador (puedes ajustar el texto)
+    // Seteamos el slice ganador (puedes ajustar el texto)
     setState(() => winner = TestSlice.values[targetIndex]);
 
-    // Lanzar confeti con opciones (Confetti.launch usa el Overlay)
+    // Configuración del confeti con opciones (Confetti.launch usa el Overlay)
     Confetti.launch(
       context,
       options: ConfettiOptions(
         particleCount: 120,
         spread: 70,
-        y: 0.6, // altura relativa (0..1)
+        y: 0.6,
         startVelocity: 50,
         decay: 0.95,
         gravity: 0.6,
         ticks: 200,
-        x: 0.5, // centro horizontal
-        // usa los colores del slice ganador si quieres
+        x: 0.5,
         colors: [winner!.color, Colors.white, Colors.yellow],
       ),
-      // opcional: particleBuilder: (i) => Star()  // si quieres formas personalizadas
     );
 
     _timer = Timer(const Duration(seconds: 3), _spin); // Se detona nuevamente esta misma función 3 segundos despues de haberse ejecutad

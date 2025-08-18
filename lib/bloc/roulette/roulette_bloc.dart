@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myroulette/bloc/roulette/roulette_event.dart';
+import 'package:myroulette/bloc/roulette/roulette_state.dart';
+import 'package:myroulette/models/slice.dart';
+
+class RouletteBloc extends Bloc<RouletteEvent, RouletteState>{
+  RouletteBloc() : super(RouletteState(
+    slices: [],
+    dummySlice: [
+      Slice(name: "", color: Colors.grey),
+    ]
+  )) {
+    on<AddSliceEvent>(_onAddSliceEvent);
+    on<DeleteSliceEvent>(_onDeleteSliceEvent);
+  }
+
+  void _onAddSliceEvent(AddSliceEvent event, Emitter<RouletteState> emit) {
+
+  }
+
+  void _onDeleteSliceEvent(DeleteSliceEvent event, Emitter<RouletteState> emit) {
+
+  }
+}

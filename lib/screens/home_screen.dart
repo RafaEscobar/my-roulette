@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myroulette/screens/roulette_screen.dart';
 import 'package:myroulette/widgets/roulette_example.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +33,10 @@ class HomeScreen extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 20),
               child: GestureDetector(
                 onTap: () {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RouletteScreen(),)
+                  );
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
