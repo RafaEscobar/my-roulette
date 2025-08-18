@@ -22,6 +22,7 @@ class _RouletteViewState extends State<RouletteView> {
       slices.length,
       textBuilder: (index) => slices[index].name,
       colorBuilder: (index) => slices[index].color,
+      textStyleBuilder: (index) => TextStyle(fontSize: 20, color: Colors.white),
     );
   }
 

@@ -16,7 +16,9 @@ class RouletteBloc extends Bloc<RouletteEvent, RouletteState>{
   }
 
   void _onAddSliceEvent(AddSliceEvent event, Emitter<RouletteState> emit) {
-
+    emit(state.copyWith(
+        slices: List.from(state.slices)..add(event.slice)
+    ));
   }
 
   void _onDeleteSliceEvent(DeleteSliceEvent event, Emitter<RouletteState> emit) {

@@ -1,5 +1,10 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myroulette/bloc/roulette/roulette_bloc.dart';
+import 'package:myroulette/bloc/roulette/roulette_event.dart';
+import 'package:myroulette/models/slice.dart';
 import 'package:myroulette/widgets/simple_button.dart';
 
 class NewSliceForm extends StatefulWidget {
@@ -10,10 +15,23 @@ class NewSliceForm extends StatefulWidget {
 }
 
 class _NewSliceFormState extends State<NewSliceForm> {
-  final TextEditingController _searchController = TextEditingController();
-  Color screenColor = Colors.blue; // 👈 color inicial
+  final TextEditingController _controller = TextEditingController();
+  Color screenColor = Colors.blue;
+
+  void _saveSlice(RouletteBloc bloc) {
+    if (_controller.text.isNotEmpty) {
+      bloc.add(AddSliceEvent(
+        Slice(name: _controller.text, color: screenColor)
+      ));
+      _controller.clear();
+      Navigator.pop(context);
+    } else {
+      Fluttertoast.showToast(msg: 'Te falta el nombre de la rebanda', webPosition: 'top');
+    }
+  }
 
   void _openModal(BuildContext context) {
+    final RouletteBloc bloc = context.read<RouletteBloc>();
     showModalBottomSheet(
       useSafeArea: true,
       useRootNavigator: true,
@@ -45,7 +63,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
                       Expanded(
                         flex: 10,
                         child: Text(
-                          "Nuevo elemento",
+                          "Nueva rebanada",
                           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                           textAlign: TextAlign.center,
                         ),
@@ -54,9 +72,9 @@ class _NewSliceFormState extends State<NewSliceForm> {
                     ],
                   ),
                   TextField(
-                    controller: _searchController,
+                    controller: _controller,
                     decoration: InputDecoration(
-                      labelText: 'Elemento',
+                      labelText: 'Rebanada',
                       labelStyle: TextStyle(color: Colors.grey.shade600, fontSize: 16),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey.shade300),
@@ -101,7 +119,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
                       Expanded(
                         child: SimpleButton(
                           label: 'Guardar',
-                          callBack: () {},
+                          callBack: () => _saveSlice(bloc),
                           btnColor: Colors.lightGreen.withAlpha(150),
                           textStyle: TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 18),
                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -125,7 +143,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
       height: 50,
       width: 210,
       child: SimpleButton(
-        label: 'Agregar elemento',
+        label: 'Agregar rebanada',
         callBack: () => _openModal(context),
         btnColor: Color(0XFFFDE74C).withAlpha(95),
         textColor: Colors.purple.shade700,

@@ -35,6 +35,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_confetti: ^0.5.1
+  fluttertoast: ^8.2.12
   roulette: ^0.2.0
 
 dev_dependencies:
