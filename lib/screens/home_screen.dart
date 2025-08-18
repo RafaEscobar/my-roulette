@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
               spacing: 10,
               children: [
                 SizedBox(
-                  height: 300,
+                  height: 340,
                   child: RouletteExample(),
                 ),
                 Row(
