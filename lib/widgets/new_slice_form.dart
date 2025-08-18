@@ -18,6 +18,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
       useSafeArea: true,
       useRootNavigator: true,
       isScrollControlled: true,
+      isDismissible: false,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
       context: context,
       builder: (modalContext) {
@@ -25,6 +26,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
           child: SingleChildScrollView(
             padding: EdgeInsets.only(bottom: MediaQuery.of(modalContext).viewInsets.bottom),
             child: Container(
+              width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -85,7 +87,26 @@ class _NewSliceFormState extends State<NewSliceForm> {
                     },
                   ),
                   Row(
+                    spacing: 16,
                     children: [
+                      Expanded(
+                        child: SimpleButton(
+                          label: 'Cancelar',
+                          callBack: () => Navigator.of(context).pop(),
+                          btnColor: Colors.red.withAlpha(200),
+                          textStyle: TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 18),
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        ),
+                      ),
+                      Expanded(
+                        child: SimpleButton(
+                          label: 'Guardar',
+                          callBack: () {},
+                          btnColor: Colors.lightGreen.withAlpha(150),
+                          textStyle: TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 18),
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        ),
+                      ),
 
                     ],
                   )
@@ -105,7 +126,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
       width: 210,
       child: SimpleButton(
         label: 'Agregar elemento',
-        callBack: () => _openModal,
+        callBack: () => _openModal(context),
         btnColor: Color(0XFFFDE74C).withAlpha(95),
         textColor: Colors.purple.shade700,
         icon: Icons.add,

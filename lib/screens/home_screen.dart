@@ -32,6 +32,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(bottom: 20),
+              width: 290,
               child: SimpleButton(
                 label: 'Generar un nueva ruleta',
                 callBack: () {
@@ -42,6 +43,8 @@ class HomeScreen extends StatelessWidget {
                 },
                 btnColor: Color(0XFFFDE74C).withAlpha(95),
                 textColor: Colors.purple.shade700,
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 10),
+                textStyle: TextStyle(fontSize: 20, color:  Colors.purple.shade700, fontWeight: FontWeight.w700),
               )
             )
           ],

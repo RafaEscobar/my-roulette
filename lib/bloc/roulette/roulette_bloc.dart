@@ -8,7 +8,7 @@ class RouletteBloc extends Bloc<RouletteEvent, RouletteState>{
   RouletteBloc() : super(RouletteState(
     slices: [],
     dummySlice: [
-      Slice(name: "", color: Colors.grey),
+      Slice(name: "", color: Colors.yellow.withAlpha(90)),
     ]
   )) {
     on<AddSliceEvent>(_onAddSliceEvent);
