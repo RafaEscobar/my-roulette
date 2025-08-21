@@ -17,12 +17,28 @@ class RouletteView extends StatefulWidget {
 class _RouletteViewState extends State<RouletteView> {
   final RouletteController _controller = RouletteController();
 
+  TextStyle outlineStyle(double fontSize) => TextStyle(
+    fontSize: fontSize,
+    color: Colors.purple.shade400,
+    fontWeight: FontWeight.bold,
+    shadows: const [
+      Shadow(offset: Offset(-1, -1), blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(1, -1),  blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(-1, 1),  blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(1, 1),   blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(0, -1),  blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(0, 1),   blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(-1, 0),  blurRadius: 0, color: Colors.white70),
+      Shadow(offset: Offset(1, 0),   blurRadius: 0, color: Colors.white70),
+    ],
+  );
+
   RouletteGroup _buildRouletteGroup(List<Slice> slices) {
     return RouletteGroup.uniform(
       slices.length,
       textBuilder: (index) => slices[index].name,
       colorBuilder: (index) => slices[index].color,
-      textStyleBuilder: (index) => TextStyle(fontSize: 20, color: Colors.white),
+      textStyleBuilder: (index) => outlineStyle(20),
     );
   }
 
@@ -49,26 +65,56 @@ class _RouletteViewState extends State<RouletteView> {
                 BlocBuilder<RouletteBloc, RouletteState>(
                   builder: (BuildContext context, RouletteState state) {
                     if (state.slices.isEmpty) {
-                      return SizedBox(
-                        height: 300,
-                        child: Roulette(
-                          group: _buildRouletteGroup(state.dummySlice),
-                          controller: _controller,
-                          style: const RouletteStyle(
-                            dividerThickness: 0.0,
-                            dividerColor: Colors.black,
-                            centerStickSizePercent: 0.05,
-                            centerStickerColor: Colors.black,
-                          ),
-                        ),
+                      return Transform.rotate(
+                        angle: .0,
+                        child: Stack(
+                          children: [
+                            SizedBox(
+                              width: 340,
+                              child: Roulette(
+                                group: _buildRouletteGroup(state.dummySlice),
+                                controller: _controller,
+                                style: const RouletteStyle(
+                                  dividerThickness: 0.0,
+                                  dividerColor: Colors.black,
+                                  centerStickSizePercent: 0.05,
+                                  centerStickerColor: Colors.black,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 2,
+                              right: 26,
+                              child: Transform.rotate(
+                                angle: 0.8,
+                                child: Icon(Icons.arrow_back_ios_rounded, size: 46, color: Colors.blue,)
+                              ),
+                            )
+                          ],
+                        )
                       );
                     }
-                    return SizedBox(
-                      height: 300,
-                      child: Roulette(
-                        group: _buildRouletteGroup(state.slices),
-                        controller: _controller
-                      ),
+                    return Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: 3.12,
+                          child: SizedBox(
+                            height: 340,
+                            child: Roulette(
+                              group: _buildRouletteGroup(state.slices),
+                              controller: _controller
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 1,
+                          right: 36,
+                          child: Transform.rotate(
+                            angle: 0.8,
+                            child: Icon(Icons.arrow_back_ios_rounded, size: 46, color: Colors.blue,)
+                          ),
+                        )
+                      ],
                     );
                   },
                 )

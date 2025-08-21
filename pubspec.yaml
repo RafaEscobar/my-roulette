@@ -37,6 +37,7 @@ dependencies:
   flutter_confetti: ^0.5.1
   fluttertoast: ^8.2.12
   roulette: ^0.2.0
+  stroke_text: ^1.0.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0

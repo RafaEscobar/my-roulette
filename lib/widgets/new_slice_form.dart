@@ -20,11 +20,15 @@ class _NewSliceFormState extends State<NewSliceForm> {
 
   void _saveSlice(RouletteBloc bloc) {
     if (_controller.text.isNotEmpty) {
-      bloc.add(AddSliceEvent(
-        Slice(name: _controller.text, color: screenColor)
-      ));
-      _controller.clear();
-      Navigator.pop(context);
+      if (context.read<RouletteBloc>().state.slices.length<9) {
+        bloc.add(AddSliceEvent(
+          Slice(name: _controller.text, color: screenColor)
+        ));
+        _controller.clear();
+      } else {
+        Fluttertoast.showToast(msg: 'Has alcanzado el límite de rebanadas.', webPosition: 'top');
+      }
+        Navigator.pop(context);
     } else {
       Fluttertoast.showToast(msg: 'Te falta el nombre de la rebanda', webPosition: 'top');
     }
@@ -81,10 +85,6 @@ class _NewSliceFormState extends State<NewSliceForm> {
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey.shade500),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () => (),
                       ),
                     ),
                   ),
