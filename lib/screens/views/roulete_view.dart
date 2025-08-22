@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myroulette/bloc/roulette/roulette_bloc.dart';
 import 'package:myroulette/bloc/roulette/roulette_state.dart';
 import 'package:myroulette/models/slice.dart';
-import 'package:myroulette/theme/app_theme.dart';
 import 'package:myroulette/utils/app_text_styles.dart';
 import 'package:myroulette/widgets/examples/roulette_placeholder.dart';
 import 'package:myroulette/widgets/forms/new_slice_form.dart';
-import 'package:myroulette/widgets/ping_text.dart';
+import 'package:myroulette/widgets/roulette_actions.dart';
 import 'package:myroulette/widgets/slice_list.dart';
 import 'package:roulette/roulette.dart';
 
@@ -84,31 +83,7 @@ class _RouletteViewState extends State<RouletteView> {
                   },
                 ),
                 SizedBox(height: 40,),
-                (context.watch<RouletteBloc>().state.slices.isNotEmpty) ?
-                  GestureDetector(
-                    onTap: () {
-
-                    },
-                    child: PingText(
-                      text: '¡Pulsa aquí para girar!',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primaryPurple,
-                      ),
-                      duration: const Duration(milliseconds: 1400),
-                      beginScale: 1.0,
-                      endScale: 1.3,
-                      pulses: 1,
-                    ),
-                  ) : Text(
-                    "Agrega una rebanada",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primaryPurple,
-                    ),
-                  )
+                RouletteActions(hasSlices: context.watch<RouletteBloc>().state.slices.isNotEmpty)
               ],
             ),
           )
