@@ -50,7 +50,7 @@ class RouletteActions extends StatelessWidget {
     bloc.add(SpinningChangeEvent(true));
 
     int sliceId = _getSlice(bloc: bloc, sliceCount: sliceCount);
-    _runAnimation(sliceId: sliceId);
+    await _runAnimation(sliceId: sliceId);
     if (!context.mounted) return;
     _throwConfetti(context, bloc.state.currentSlice!.color);
 
