@@ -72,13 +72,18 @@ class RouletteActions extends StatelessWidget {
         ),
       );
     } else if(!bloc.state.isSpinning && bloc.state.currentSlice!=null) {
-      return Text(
-        bloc.state.currentSlice!.name,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppTheme.primaryPurple,
-        ),
+      return Column(
+        children: [
+          Text(
+            bloc.state.currentSlice!.name,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.primaryPurple,
+            ),
+          ),
+          
+        ],
       );
     } else {
       return CircularProgressIndicator();
