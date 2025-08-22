@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myroulette/bloc/roulette/roulette_bloc.dart';
 import 'package:myroulette/bloc/roulette/roulette_state.dart';
 import 'package:myroulette/models/slice.dart';
-import 'package:myroulette/widgets/new_slice_form.dart';
+import 'package:myroulette/utils/app_text_styles.dart';
+import 'package:myroulette/widgets/examples/roulette_placeholder.dart';
+import 'package:myroulette/widgets/forms/new_slice_form.dart';
 import 'package:roulette/roulette.dart';
 
 class RouletteView extends StatefulWidget {
@@ -17,28 +19,12 @@ class RouletteView extends StatefulWidget {
 class _RouletteViewState extends State<RouletteView> {
   final RouletteController _controller = RouletteController();
 
-  TextStyle outlineStyle(double fontSize) => TextStyle(
-    fontSize: fontSize,
-    color: Colors.purple.shade400,
-    fontWeight: FontWeight.bold,
-    shadows: const [
-      Shadow(offset: Offset(-1, -1), blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(1, -1),  blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(-1, 1),  blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(1, 1),   blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(0, -1),  blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(0, 1),   blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(-1, 0),  blurRadius: 0, color: Colors.white70),
-      Shadow(offset: Offset(1, 0),   blurRadius: 0, color: Colors.white70),
-    ],
-  );
-
   RouletteGroup _buildRouletteGroup(List<Slice> slices) {
     return RouletteGroup.uniform(
       slices.length,
       textBuilder: (index) => slices[index].name,
       colorBuilder: (index) => slices[index].color,
-      textStyleBuilder: (index) => outlineStyle(20),
+      textStyleBuilder: (index) => AppTextStyles.outlineText(fontSize: 20),
     );
   }
 
@@ -65,33 +51,10 @@ class _RouletteViewState extends State<RouletteView> {
                 BlocBuilder<RouletteBloc, RouletteState>(
                   builder: (BuildContext context, RouletteState state) {
                     if (state.slices.isEmpty) {
-                      return Transform.rotate(
-                        angle: .0,
-                        child: Stack(
-                          children: [
-                            SizedBox(
-                              width: 340,
-                              child: Roulette(
-                                group: _buildRouletteGroup(state.dummySlice),
-                                controller: _controller,
-                                style: const RouletteStyle(
-                                  dividerThickness: 0.0,
-                                  dividerColor: Colors.black,
-                                  centerStickSizePercent: 0.05,
-                                  centerStickerColor: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 2,
-                              right: 26,
-                              child: Transform.rotate(
-                                angle: 0.8,
-                                child: Icon(Icons.arrow_back_ios_rounded, size: 46, color: Colors.blue,)
-                              ),
-                            )
-                          ],
-                        )
+                      return RoulettePlaceholder(
+                        controller: _controller,
+                        callBack: _buildRouletteGroup,
+                        state: state
                       );
                     }
                     return Stack(

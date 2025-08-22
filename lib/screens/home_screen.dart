@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myroulette/screens/roulette_screen.dart';
-import 'package:myroulette/widgets/roulette_example.dart';
+import 'package:myroulette/widgets/examples/roulette_example.dart';
 import 'package:myroulette/widgets/simple_button.dart';
 
 class HomeScreen extends StatelessWidget {
