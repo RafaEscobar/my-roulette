@@ -76,6 +76,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
                     ],
                   ),
                   TextField(
+                    maxLength: 12,
                     controller: _controller,
                     decoration: InputDecoration(
                       labelText: 'Rebanada',

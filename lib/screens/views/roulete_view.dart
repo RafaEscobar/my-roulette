@@ -12,7 +12,6 @@ import 'package:roulette/roulette.dart';
 class RouletteView extends StatefulWidget {
   const RouletteView({super.key,});
 
-
   @override
   State<RouletteView> createState() => _RouletteViewState();
 }
