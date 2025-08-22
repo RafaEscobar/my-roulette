@@ -83,7 +83,7 @@ class _RouletteViewState extends State<RouletteView> {
                   },
                 ),
                 SizedBox(height: 40,),
-                RouletteActions(hasSlices: context.watch<RouletteBloc>().state.slices.isNotEmpty)
+                RouletteActions(controller: _controller,)
               ],
             ),
           )
