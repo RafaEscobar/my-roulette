@@ -21,6 +21,7 @@ class _NewSliceFormState extends State<NewSliceForm> {
   void _saveSlice(RouletteBloc bloc) {
     if (_controller.text.isNotEmpty) {
       if (context.read<RouletteBloc>().state.slices.length<9) {
+        bloc.add(CleanSliceEvent());
         bloc.add(AddSliceEvent(
           Slice(name: _controller.text, color: screenColor)
         ));

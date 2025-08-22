@@ -15,7 +15,8 @@ class RoulettePlaceholder extends StatelessWidget {
       angle: .0,
       child: Stack(
         children: [
-          SizedBox(
+          Container(
+            margin: EdgeInsets.only(top: 38),
             width: 340,
             child: Roulette(
               group: callBack(state.dummySlice),
@@ -29,10 +30,10 @@ class RoulettePlaceholder extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 2,
-            right: 26,
+            top: -2,
+            right: 147,
             child: Transform.rotate(
-              angle: 0.8,
+              angle: 4.7,
               child: Icon(Icons.arrow_back_ios_rounded, size: 46, color: Colors.blue,)
             ),
           )

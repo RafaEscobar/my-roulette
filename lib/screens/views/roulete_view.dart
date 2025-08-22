@@ -59,25 +59,23 @@ class _RouletteViewState extends State<RouletteView> {
                       );
                     }
                     return Stack(
+                      alignment: Alignment.topCenter,
                       children: [
-                        Transform.rotate(
-                          angle: 3.12,
-                          child: SizedBox(
-                            height: 340,
-                            child: Roulette(
-                              group: _buildRouletteGroup(state.slices),
-                              controller: _controller
-                            ),
+                        Container(
+                          margin: EdgeInsets.only(top: 40),
+                          height: 340,
+                          child: Roulette(
+                            group: _buildRouletteGroup(state.slices),
+                            controller: _controller,
                           ),
                         ),
                         Positioned(
-                          bottom: 1,
-                          right: 36,
+                          top: 2,
                           child: Transform.rotate(
-                            angle: 0.8,
-                            child: Icon(Icons.arrow_back_ios_rounded, size: 46, color: Colors.blue,)
+                            angle: 4.7,
+                            child: Icon(Icons.arrow_back_ios_rounded, size: 46, color: Colors.blue),
                           ),
-                        )
+                        ),
                       ],
                     );
                   },

@@ -9,6 +9,10 @@ class AddSliceEvent extends RouletteEvent {
   final Slice slice;
 }
 
+class CleanStateEvent extends RouletteEvent {}
+
+class CleanSliceEvent extends RouletteEvent {}
+
 class DeleteSliceEvent extends RouletteEvent {
   DeleteSliceEvent(this.sliceId);
   final int sliceId;

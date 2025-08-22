@@ -7,6 +7,7 @@ import 'package:myroulette/bloc/roulette/roulette_bloc.dart';
 import 'package:myroulette/bloc/roulette/roulette_event.dart';
 import 'package:myroulette/theme/app_theme.dart';
 import 'package:myroulette/widgets/ping_text.dart';
+import 'package:myroulette/widgets/simple_button.dart';
 import 'package:roulette/roulette.dart';
 
 class RouletteActions extends StatelessWidget {
@@ -32,11 +33,13 @@ class RouletteActions extends StatelessWidget {
     bloc.add(SpinningChangeEvent(true));
     final targetIndex = Random().nextInt(sliceCount);
     bloc.add(CurrentSliceChangeEvent(bloc.state.slices[targetIndex]));
+    controller.resetAnimation();
     await controller.rollTo(
       targetIndex,
-      offset: 6,
-      duration: const Duration(seconds: 6),
-      curve: Curves.easeOut,
+      duration: const Duration(seconds: 4),
+      minRotateCircles: 4,
+      offset: 0.5, // 0.5 = el centro del sector => queda bajo la flecha
+      clockwise: true,
     );
     if (!context.mounted) return;
     _throwConfetti(context, bloc.state.currentSlice!.color);
@@ -46,6 +49,7 @@ class RouletteActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RouletteBloc bloc = context.watch<RouletteBloc>();
+    RouletteBloc blocRead = context.read<RouletteBloc>();
     if (bloc.state.slices.isNotEmpty && bloc.state.currentSlice==null) {
       return GestureDetector(
         onTap: () => _runRoulette(context: context, sliceCount: bloc.state.slices.length, bloc: bloc),
@@ -73,6 +77,7 @@ class RouletteActions extends StatelessWidget {
       );
     } else if(!bloc.state.isSpinning && bloc.state.currentSlice!=null) {
       return Column(
+        spacing: 20,
         children: [
           Text(
             bloc.state.currentSlice!.name,
@@ -82,7 +87,28 @@ class RouletteActions extends StatelessWidget {
               color: AppTheme.primaryPurple,
             ),
           ),
-          
+          SizedBox(
+            height: 40,
+            width: 185,
+            child: SimpleButton(
+              label: 'Volver a girar',
+              callBack: () => _runRoulette(context: context, sliceCount: bloc.state.slices.length, bloc: bloc),
+              btnColor: Color(0XFFFDE74C).withAlpha(95),
+              textColor: Colors.purple.shade700,
+              icon: Icons.refresh,
+            )
+          ),
+          SizedBox(
+            height: 40,
+            width: 185,
+            child: SimpleButton(
+              label: 'Limpiar',
+              callBack: () => blocRead.add(CleanStateEvent()),
+              btnColor: Color(0XFFFDE74C).withAlpha(95),
+              textColor: Colors.purple.shade700,
+              icon: Icons.delete_outline_sharp,
+            )
+          )
         ],
       );
     } else {
