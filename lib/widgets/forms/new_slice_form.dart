@@ -125,7 +125,6 @@ class _NewSliceFormState extends State<NewSliceForm> {
                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         ),
                       ),
-
                     ],
                   )
                 ],

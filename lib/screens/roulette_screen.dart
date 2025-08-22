@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myroulette/bloc/roulette/roulette_bloc.dart';
-import 'package:myroulette/screens/roulete_view.dart';
+import 'package:myroulette/screens/views/roulete_view.dart';
 
 class RouletteScreen extends StatelessWidget {
   const RouletteScreen({super.key});

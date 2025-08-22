@@ -6,6 +6,7 @@ import 'package:myroulette/models/slice.dart';
 import 'package:myroulette/utils/app_text_styles.dart';
 import 'package:myroulette/widgets/examples/roulette_placeholder.dart';
 import 'package:myroulette/widgets/forms/new_slice_form.dart';
+import 'package:myroulette/widgets/slice_list.dart';
 import 'package:roulette/roulette.dart';
 
 class RouletteView extends StatefulWidget {
@@ -86,7 +87,19 @@ class _RouletteViewState extends State<RouletteView> {
           )
         ),
       ),
-      floatingActionButton: NewSliceForm()
+      floatingActionButton: Container(
+        color: Colors.white,
+        height: 140,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          spacing: 10,
+          children: [
+            if (context.watch<RouletteBloc>().state.slices.isNotEmpty) SliceList(),
+            NewSliceForm()
+          ],
+        ),
+      )
     );
   }
 }
