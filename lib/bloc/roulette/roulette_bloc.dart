@@ -13,6 +13,8 @@ class RouletteBloc extends Bloc<RouletteEvent, RouletteState>{
   )) {
     on<AddSliceEvent>(_onAddSliceEvent);
     on<DeleteSliceEvent>(_onDeleteSliceEvent);
+    on<SpinningChangeEvent>(_onSpinningChange);
+    on<CurrentSliceChangeEvent>(_onCurrentSliceChangeEvent);
   }
 
   void _onAddSliceEvent(AddSliceEvent event, Emitter<RouletteState> emit) {
@@ -22,6 +24,20 @@ class RouletteBloc extends Bloc<RouletteEvent, RouletteState>{
   }
 
   void _onDeleteSliceEvent(DeleteSliceEvent event, Emitter<RouletteState> emit) {
+    emit(state.copyWith(
+      slices: List.from(state.slices)..removeAt(event.sliceId)
+    ));
+  }
 
+  void _onSpinningChange(SpinningChangeEvent event, Emitter<RouletteState> emit) {
+    emit(state.copyWith(
+      isSpinning: event.newValue
+    ));
+  }
+
+  void _onCurrentSliceChangeEvent(CurrentSliceChangeEvent event, Emitter<RouletteState> emit) {
+    emit(state.copyWith(
+      currentSlice: event.newSlice
+    ));
   }
 }

@@ -13,3 +13,13 @@ class DeleteSliceEvent extends RouletteEvent {
   DeleteSliceEvent(this.sliceId);
   final int sliceId;
 }
+
+class SpinningChangeEvent extends RouletteEvent {
+  SpinningChangeEvent(this.newValue);
+  final bool newValue;
+}
+
+class CurrentSliceChangeEvent extends RouletteEvent {
+  CurrentSliceChangeEvent(this.newSlice);
+  final Slice newSlice;
+}
