@@ -45,7 +45,7 @@ class _RouletteViewState extends State<RouletteView> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Center(
             child: Column(
               children: [

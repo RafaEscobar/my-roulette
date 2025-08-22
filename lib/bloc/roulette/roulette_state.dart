@@ -6,6 +6,7 @@ class RouletteState extends Equatable{
   final List<Slice> dummySlice;
   final bool isSpinning;
   final Slice? currentSlice;
+  static const _currentSliceSentinel = Object();
 
   const RouletteState({
     this.slices = const [],
@@ -18,12 +19,14 @@ class RouletteState extends Equatable{
     List<Slice>? slices,
     List<Slice>? dummySlice,
     bool? isSpinning,
-    Slice? currentSlice
+    Object? currentSlice = _currentSliceSentinel,
   }) => RouletteState(
     slices: slices ?? this.slices,
     dummySlice: dummySlice ?? this.dummySlice,
     isSpinning: isSpinning ?? this.isSpinning,
-    currentSlice: currentSlice ?? this.currentSlice
+    currentSlice: currentSlice == _currentSliceSentinel
+      ? this.currentSlice
+      : currentSlice as Slice?,
   );
 
   @override
