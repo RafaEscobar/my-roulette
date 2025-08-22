@@ -29,20 +29,31 @@ class RouletteActions extends StatelessWidget {
       ),
     );
 
-  Future<void> _runRoulette({required BuildContext context, required int sliceCount, required RouletteBloc bloc}) async {
-    bloc.add(SpinningChangeEvent(true));
+  int _getSlice({required RouletteBloc bloc,  required int sliceCount}) {
     final targetIndex = Random().nextInt(sliceCount);
     bloc.add(CurrentSliceChangeEvent(bloc.state.slices[targetIndex]));
+    return targetIndex;
+  }
+
+  Future<void> _runAnimation({required int sliceId}) async {
     controller.resetAnimation();
     await controller.rollTo(
-      targetIndex,
+      sliceId,
       duration: const Duration(seconds: 4),
       minRotateCircles: 4,
-      offset: 0.5, // 0.5 = el centro del sector => queda bajo la flecha
+      offset: 0.5,
       clockwise: true,
     );
+  }
+
+  Future<void> _runRoulette({required BuildContext context, required int sliceCount, required RouletteBloc bloc}) async {
+    bloc.add(SpinningChangeEvent(true));
+
+    int sliceId = _getSlice(bloc: bloc, sliceCount: sliceCount);
+    _runAnimation(sliceId: sliceId);
     if (!context.mounted) return;
     _throwConfetti(context, bloc.state.currentSlice!.color);
+
     bloc.add(SpinningChangeEvent(false));
   }
 
